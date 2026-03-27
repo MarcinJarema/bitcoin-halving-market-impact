@@ -1,0 +1,8 @@
+ticker,asset_name,asset_class,market_group,include_in_dashboard
+BTC-USD,Bitcoin,Crypto,Crypto,1
+ETH-USD,Ethereum,Crypto,Crypto,1
+AAPL,Apple Inc.,Equity,US Large Cap,1
+MSFT,Microsoft Corp.,Equity,US Large Cap,1
+NVDA,NVIDIA Corp.,Equity,US Large Cap,1
+AMZN,Amazon.com Inc.,Equity,US Large Cap,1
+GOOGL,Alphabet Inc. Class A,Equity,US Large Cap,1
