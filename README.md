@@ -4,57 +4,66 @@ Event-based analysis of BTC, ETH and selected US large-cap stocks around Bitcoin
 
 ## Project status
 
-This repository is currently **work in progress**.
+The Power BI report is **complete (final version)**.
 
-At the current MVP stage, the project already includes:
-- an initial Power BI dashboard page focused on BTC price behavior around Bitcoin halving windows,
-- a working analytical layout with KPI cards, filters, a cycle summary table and a price path chart,
-- an initial Power BI data model based on fact and dimension tables.
+The final dashboard is a multi-page, interactive Power BI report with page navigation, custom tooltips and custom visuals. It covers the full intended scope: a BTC-focused overview, per-cycle halving analysis, and cross-asset comparison across BTC, ETH and selected US large-cap stocks.
 
-The remaining parts of the project, including additional report pages, final data preparation flow and broader cross-asset comparison, are still being completed.
+This remains a **portfolio project** focused on descriptive analysis — see the Limitations section below.
 
 ## Project goal
 
 The goal of this project is to analyze how selected market assets behaved in time windows around Bitcoin halving events.
 
-The project is focused on **descriptive analysis**, not causal claims.  
-It aims to show how prices, local lows, post-halving highs and selected event-window metrics behaved around known Bitcoin halving dates.
+The project is focused on **descriptive analysis**, not causal claims.
+It shows how prices, local lows, post-halving highs and selected event-window metrics behaved around known Bitcoin halving dates.
 
-## Current scope
+## Scope
 
-The current scope includes:
 - Bitcoin (`BTC-USD`)
 - Ethereum (`ETH-USD`)
-- selected US large-cap stocks
+- selected US large-cap stocks (AAPL, AMZN, GOOGL, MSFT, NVDA)
 - event windows aligned to Bitcoin halving dates
 
-At this stage, the most advanced and already visible part of the project is the BTC-focused dashboard page.
+## Dashboard (final version)
 
-## Current MVP
+The report is organized into navigable pages (with action-button navigation between them):
 
-### 1. Power BI report page: BTC Halving Thesis
+### 1. Przegląd (Overview)
+BTC-focused overview answering: **how did Bitcoin behave around halving windows across historical cycles?**
+- KPI / card visuals for key event-window metrics (pre-halving minimum day, post-halving maximum day, number of analyzed cycles),
+- a line chart of BTC price paths around halving dates,
+- an area chart, a summary table and a detail (pivot) table,
+- cycle and days-from-halving slicers.
 
-The first completed report page focuses on BTC and answers a simple question:
+### 2. Cykle Halvingu (Halving Cycles)
+Per-cycle breakdown of halving windows:
+- card visuals for cycle-level metrics,
+- column and line charts comparing behavior across cycles,
+- slicers for cycle selection.
 
-**How did Bitcoin behave around halving windows across historical cycles?**
+### 3. Porównanie (Comparison)
+Cross-asset comparison across BTC, ETH and selected US equities:
+- line chart and clustered column chart comparing assets,
+- card visuals and a detail table,
+- Chiclet Slicer (custom visual) for asset selection.
 
-The page currently includes:
-- KPI cards for:
-  - pre-halving minimum day,
-  - post-halving maximum day,
-  - number of analyzed cycles,
-- a cycle filter,
-- a days-from-halving window filter,
-- a summary table for halving cycles,
-- a line chart showing BTC price paths around halving dates.
+### 4. Porównanie halving (Halving Comparison)
+Comparison focused on halving windows across assets:
+- line chart and clustered bar chart,
+- card visuals and two detail (pivot) tables,
+- Chiclet Slicer for selection.
 
-### 2. Data model
+### 5. Dokumentacja (Documentation) & 6. Pomoc (Help)
+In-report documentation and help pages describing the model, metrics and how to navigate the report.
 
-The report is built on a simple analytical model using:
+The report also uses **custom tooltips** (dedicated tooltip pages) for richer hover detail, and custom visuals (Chiclet Slicer, Advance Card, Inforiver Filter).
+
+## Data model
+
+The report is built on a star-schema analytical model:
 - fact tables for market prices and halving-window observations,
-- dimension tables for assets, calendar dates and halving metadata.
-
-This model is intended to keep the Power BI layer readable and easier to extend with additional pages.
+- dimension tables for assets, calendar dates and halving metadata,
+- DAX measures for event-window metrics (local lows, post-halving highs, returns, averages).
 
 ## Tech stack
 
@@ -62,29 +71,26 @@ This model is intended to keep the Power BI layer readable and easier to extend 
 - Pandas
 - yfinance
 - Power Query
-- Power BI
+- Power BI (DAX, star-schema modeling, custom visuals)
 - Git / GitHub
 
 ## Analysis approach
 
-The workflow used in this project is:
-
-1. Download daily market data for crypto and selected equities.
+1. Download daily market data for crypto and selected equities (yfinance).
 2. Prepare reference data for Bitcoin halving dates and asset metadata.
 3. Align observations into event windows around halving dates.
-4. Transform and model data for reporting.
-5. Build Power BI pages for exploratory and descriptive analysis.
+4. Transform and model data (Power Query + star schema) for reporting.
+5. Build interactive Power BI pages for exploratory and descriptive analysis.
 
 ## Limitations
-
-This project has several important limitations:
 
 - It does **not** attempt to prove that halving events directly caused price movements.
 - The number of historical halving cycles is small.
 - Cross-asset comparisons around halving dates should be treated as descriptive context, not hard evidence of market dependency.
-- Data sourcing and transformation are still being finalized, so the repository should be treated as an evolving portfolio project rather than a finished production system.
 
 ## Screenshots
+
+> Screenshots of the final multi-page report are being refreshed. The images below show the BTC overview page and the data model.
 
 ### Dashboard preview
 
@@ -94,25 +100,11 @@ This project has several important limitations:
 
 ![Power BI data model](powerbi/screenshots/btc-halving-thesis-data-model.png)
 
-## Next steps
-
-Planned next steps:
-- finalize data ingestion and cleaned datasets,
-- complete additional Power BI pages for cross-asset comparison and correlations,
-- document transformation logic more clearly,
-- add a notebook with supporting exploratory analysis,
-- finalize repository structure and setup instructions.
-
 ## Why this project
 
 I built this project as a portfolio piece to demonstrate practical skills in:
 - event-based analysis,
 - financial data preparation,
-- dimensional modeling for reporting,
-- Power BI dashboard design,
+- dimensional (star-schema) modeling for reporting,
+- multi-page Power BI dashboard design with navigation, custom tooltips and custom visuals,
 - combining Python, Power Query and BI reporting in one workflow.
-
-## Repository note
-
-This repository is being developed incrementally.  
-The current version is intended to show a realistic MVP and visible progress rather than a fake “finished” project with empty structure.
