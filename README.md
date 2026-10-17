@@ -28,32 +28,32 @@ It shows how prices, local lows, post-halving highs and selected event-window me
 
 The report is organized into navigable pages (with action-button navigation between them):
 
-### 1. Przegląd (Overview)
+### 1. Overview
 BTC-focused overview answering: **how did Bitcoin behave around halving windows across historical cycles?**
 - KPI / card visuals for key event-window metrics (pre-halving minimum day, post-halving maximum day, number of analyzed cycles),
 - a line chart of BTC price paths around halving dates,
 - an area chart, a summary table and a detail (pivot) table,
 - cycle and days-from-halving slicers.
 
-### 2. Cykle Halvingu (Halving Cycles)
+### 2. Halving Cycles
 Per-cycle breakdown of halving windows:
 - card visuals for cycle-level metrics,
 - column and line charts comparing behavior across cycles,
 - slicers for cycle selection.
 
-### 3. Porównanie (Comparison)
+### 3. Comparison
 Cross-asset comparison across BTC, ETH and selected US equities:
 - line chart and clustered column chart comparing assets,
 - card visuals and a detail table,
 - Chiclet Slicer (custom visual) for asset selection.
 
-### 4. Porównanie halving (Halving Comparison)
+### 4. Halving Comparison
 Comparison focused on halving windows across assets:
 - line chart and clustered bar chart,
 - card visuals and two detail (pivot) tables,
 - Chiclet Slicer for selection.
 
-### 5. Dokumentacja (Documentation) & 6. Pomoc (Help)
+### 5. Documentation & 6. Help
 In-report documentation and help pages describing the model, metrics and how to navigate the report.
 
 The report also uses **custom tooltips** (dedicated tooltip pages) for richer hover detail, and custom visuals (Chiclet Slicer, Advance Card, Inforiver Filter).
@@ -92,37 +92,37 @@ The report is built on a star-schema analytical model:
 
 Screenshots of the final 6-page Power BI report, captured with the default filter state.
 
-### 1. Przegląd (Overview)
+### 1. Overview
 
 ![Overview page](powerbi/screenshots/01-przeglad.png)
 
 BTC close price and volume over time, KPI cards (max close, distance from ATH, cumulative return, volume), a month-by-year returns matrix, the halving cycle summary table and monthly seasonality.
 
-### 2. Cykle Halvingu (Halving Cycles)
+### 2. Halving Cycles
 
 ![Halving cycles page](powerbi/screenshots/02-cykle-halvingu.png)
 
 Single-cycle view (2016 halving shown): KPI cards with min / average / max price, cycle return and projected 2028 return, the BTC price path in the ±550-day window around the halving, and average price by pre- and post-halving phase.
 
-### 3. Porównanie (Comparison)
+### 3. Comparison
 
 ![Comparison page](powerbi/screenshots/03-porownanie.png)
 
 General comparison of two selected assets (AAPL vs AMZN shown), with a Chiclet Slicer for each side: max prices, price difference and average growth, average adjusted close over time, yearly averages and a yearly comparison table.
 
-### 4. Porównanie halving (Halving Comparison)
+### 4. Halving Comparison
 
 ![Halving comparison page](powerbi/screenshots/04-porownanie-halving.png)
 
 The same comparison switched to the "Halving" context: average asset value per halving (2016, 2020, 2024) and a table with prices 550 days before and after each halving, the difference between the two assets and the change within the window.
 
-### 5. Dokumentacja (Documentation)
+### 5. Documentation
 
 ![Documentation page](powerbi/screenshots/05-dokumentacja.png)
 
 In-report documentation: data source (yfinance), what a halving is, how to navigate the report and what each page contains.
 
-### 6. Pomoc (Help)
+### 6. Help
 
 ![Help page](powerbi/screenshots/06-pomoc.png)
 
