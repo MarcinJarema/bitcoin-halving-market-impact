@@ -1,5 +1,2 @@
-pandas
-yfinance
-jupyter
-notebook
-
+pandas>=2.0
+yfinance>=0.2.40

@@ -24,6 +24,18 @@ It shows how prices, local lows, post-halving highs and selected event-window me
 - selected US large-cap stocks (AAPL, AMZN, GOOGL, MSFT, NVDA)
 - event windows aligned to Bitcoin halving dates
 
+## Data coverage
+
+Daily data downloaded with `yfinance` (`src/download_market_data.py`). **The data in this repository and in the Power BI report ends on 2026-03-27** (the report footer shows the date of the last report refresh).
+
+| Asset | First date | Last date |
+|---|---|---|
+| BTC-USD | 2014-09-17 | 2026-03-27 |
+| ETH-USD | 2017-11-09 | 2026-03-27 |
+| AAPL, AMZN, GOOGL, MSFT, NVDA | 2011-01-03 | 2026-03-27 |
+
+Because BTC data starts in September 2014, the **2012 halving is not covered**; the analysed cycles are 2016, 2020 and 2024. The 2024 window (±550 days) ends on 2025-10-22, so it is fully covered.
+
 ## Dashboard (final version)
 
 The report is organized into navigable pages (with action-button navigation between them):
@@ -74,6 +86,24 @@ The report is built on a star-schema analytical model:
 - Power BI (DAX, star-schema modeling, custom visuals)
 - Git / GitHub
 
+## How to run
+
+1. Create a virtual environment and install the dependencies:
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate        # Windows: .venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
+2. (Optional) refresh the raw data. This overwrites the CSV files in `data/raw/` with data up to today:
+   ```bash
+   python src/download_market_data.py
+   ```
+3. Reproduce the halving-cycle summary table from the raw data:
+   ```bash
+   python src/halving_summary.py              # default window: +-550 days
+   ```
+4. Open `powerbi/bitcoin_halving_market_impact.pbix` in **Power BI Desktop** (Windows). The report is built on the CSV files from `data/`; after refreshing the data, use *Refresh* in Power BI. If the data source path points to a different folder on your machine, update it in *Transform data -> Data source settings*.
+
 ## Analysis approach
 
 1. Download daily market data for crypto and selected equities (yfinance).
@@ -82,11 +112,36 @@ The report is built on a star-schema analytical model:
 4. Transform and model data (Power Query + star schema) for reporting.
 5. Build interactive Power BI pages for exploratory and descriptive analysis.
 
+## Methodology
+
+- **Event window:** +-550 calendar days around each halving date (`DaysFromHalving` from -550 to +550).
+- **PreMin / PostMax:** the lowest BTC close in the 550 days before the halving and the highest BTC close in the 550 days after it.
+- **Return % (min -> max):** `PostMax / PreMin - 1`. This is a *best-case, hindsight* measure (buy at the lowest point, sell at the highest), not a tradable return.
+- **Other metrics:** price change from the halving-day close to +180 / +365 / +550 days (`src/halving_summary.py`).
+- **Prices:** `Adj Close` (adjusted for splits and dividends) for equities; for BTC and ETH `Adj Close` equals `Close`.
+
+## Key findings
+
+Computed from `data/raw/BTC-USD.csv` with `python src/halving_summary.py` (identical to the "Podsumowanie cykli" table in the report):
+
+| Halving | Pre-halving min (day) | Post-halving max (day) | Min -> max return | Change +365 d | Change +550 d |
+|---|---|---|---|---|---|
+| 2016-07-09 | $178.10 (-542) | $19,497.40 (+525) | +10,847% | +286.9% | +2,200.2% |
+| 2020-05-11 | $3,236.76 (-513) | $67,566.83 (+546) | +1,987% | +559.2% | +645.8% |
+| 2024-04-20 | $15,787.28 (-516) | $124,752.53 (+534) | +690% | +31.0% | +65.7% |
+
+- **Diminishing returns across cycles:** the min -> max return fell from about 10,800% (2016) to about 2,000% (2020) and about 690% (2024). The change one year after the halving was +287% (2016), +559% (2020) and +31% (2024), so 2020 was the strongest first year and 2024 by far the weakest.
+- **Timing:** in all three cycles the post-halving high occurred roughly 525-546 days after the halving, i.e. close to the end of the +550-day window. A longer window could move the maximum, so the "peak day" is partly a property of the window length.
+- **Pre-halving lows sit near the start of the window** (-542, -513, -516 days), so the min -> max return depends strongly on where the window starts.
+- With only three comparable cycles, none of this is statistical evidence. It describes what happened, not what will happen.
+
 ## Limitations
 
 - It does **not** attempt to prove that halving events directly caused price movements.
 - The number of historical halving cycles is small.
 - Cross-asset comparisons around halving dates should be treated as descriptive context, not hard evidence of market dependency.
+- The report includes a "projected 2028 return" KPI (Halving Cycles page). With only three past cycles it is an illustrative extrapolation, not a forecast.
+- The data ends on 2026-03-27 (see *Data coverage*); KPIs such as "distance from ATH" refer to that date.
 
 ## Screenshots
 
