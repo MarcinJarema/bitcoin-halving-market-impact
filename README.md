@@ -90,15 +90,49 @@ The report is built on a star-schema analytical model:
 
 ## Screenshots
 
-> Screenshots of the final multi-page report are being refreshed. The images below show the BTC overview page and the data model.
+Screenshots of the final 6-page Power BI report, captured with the default filter state.
 
-### Dashboard preview
+### 1. Przegląd (Overview)
 
-![BTC Halving Thesis dashboard](powerbi/screenshots/btc-halving-thesis-dashboard-page.png)
+![Overview page](powerbi/screenshots/01-przeglad.png)
+
+BTC close price and volume over time, KPI cards (max close, distance from ATH, cumulative return, volume), a month-by-year returns matrix, the halving cycle summary table and monthly seasonality.
+
+### 2. Cykle Halvingu (Halving Cycles)
+
+![Halving cycles page](powerbi/screenshots/02-cykle-halvingu.png)
+
+Single-cycle view (2016 halving shown): KPI cards with min / average / max price, cycle return and projected 2028 return, the BTC price path in the ±550-day window around the halving, and average price by pre- and post-halving phase.
+
+### 3. Porównanie (Comparison)
+
+![Comparison page](powerbi/screenshots/03-porownanie.png)
+
+General comparison of two selected assets (AAPL vs AMZN shown), with a Chiclet Slicer for each side: max prices, price difference and average growth, average adjusted close over time, yearly averages and a yearly comparison table.
+
+### 4. Porównanie halving (Halving Comparison)
+
+![Halving comparison page](powerbi/screenshots/04-porownanie-halving.png)
+
+The same comparison switched to the "Halving" context: average asset value per halving (2016, 2020, 2024) and a table with prices 550 days before and after each halving, the difference between the two assets and the change within the window.
+
+### 5. Dokumentacja (Documentation)
+
+![Documentation page](powerbi/screenshots/05-dokumentacja.png)
+
+In-report documentation: data source (yfinance), what a halving is, how to navigate the report and what each page contains.
+
+### 6. Pomoc (Help)
+
+![Help page](powerbi/screenshots/06-pomoc.png)
+
+Help page explaining the KPI hover tooltips, the "i" chart tooltips and where to find the full documentation.
 
 ### Data model
 
 ![Power BI data model](powerbi/screenshots/btc-halving-thesis-data-model.png)
+
+Star-schema model: fact tables (`fct_market_prices`, `fct_halving_window`), dimensions (`dim_asset`, `dim_calendar`, `dim_halving`, `dim_okres`, `dim_asset_icons`), a dedicated measures table (`measures_report`) and helper tables used by the comparison pages and sorting (`Ticker Compare A/B`, `Axis Days`, `SortBucket`).
 
 ## Why this project
 
